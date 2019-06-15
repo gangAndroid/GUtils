@@ -14,11 +14,38 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        release {
+            keyAlias 'gutils'
+            keyPassword 'gutils'
+            storeFile file(getRootDir().getPath() + '/sign/gutils.jks')
+            storePassword 'gutils'
+            v2SigningEnabled false
+        }
+        debug {
+            keyAlias 'gutils'
+            keyPassword 'gutils'
+            storeFile file(getRootDir().getPath() + '/sign/gutils.jks')
+            storePassword 'gutils'
+            v2SigningEnabled false
+        }
+    }
     buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
+    }
+    buildToolsVersion '28.0.3'
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
